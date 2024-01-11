@@ -1,6 +1,7 @@
 # from datetime import timezone
 from django.utils import timezone
 from django.db import models
+from django.contrib.auth.models import User
 
 # for the following model we first create Post model which will allows user to post things into the the blog
 # The Post will have a title, slug and body. More information on each later (part 1)
@@ -22,6 +23,10 @@ class Post(models.Model):
     updated= models.DateTimeField(auto_now=True)
 
     # ADDED default sorting and index
+    # part 7
+    author = models.ForeignKey(User, 
+                               on_delete= models.CASCADE, 
+                               related_name="blog_posts")
     # part 6
     status = models.CharField(max_length=2,
                               choices = Status.choices,
@@ -79,5 +84,9 @@ class Post(models.Model):
     # ................... Part 6 (Status field) ................
     # we have also added the status field which is an instance of CharField. It has the choices parameter to limit value of choices to only the choices in Status.choices. 
     # we have also set the default for the field to using default parameter and DRAFT is the default. 
+
+    # .................... Part 7 (Many-to-One Relationship) --------------------------------
+    # So the the django authentication comes with User which contains the many-to-one relationship
+    # so we have defined the author which means the user can have many posts thus the many-to-one relationship. 
 
         
