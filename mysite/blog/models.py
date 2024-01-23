@@ -3,8 +3,14 @@ from django.utils import timezone
 from django.db import models
 from django.contrib.auth.models import User
 
+class PublishedManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset()\
+            .filter(status=Post.Status.PUBLISHED)
+
 # for the following model we first create Post model which will allows user to post things into the the blog
 # The Post will have a title, slug and body. More information on each later (part 1)
+
 class Post(models.Model):
     # ............ PART 5 ...............
     class Status (models.TextChoices):
@@ -44,6 +50,7 @@ class Post(models.Model):
     def __str__(self):
         return self.title
     
+
 
 
     
