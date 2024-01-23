@@ -3,6 +3,7 @@ from django.utils import timezone
 from django.db import models
 from django.contrib.auth.models import User
 
+# the custom model manager
 class PublishedManager(models.Manager):
     def get_queryset(self):
         return super().get_queryset()\
@@ -37,6 +38,8 @@ class Post(models.Model):
     status = models.CharField(max_length=2,
                               choices = Status.choices,
                               default = Status.DRAFT)
+    objects = models.Manager() # The default manager
+    published = PublishedManager() # Our custom manager
 
     class Meta:
         # part 3
