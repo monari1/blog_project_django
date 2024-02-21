@@ -1,1 +1,1 @@
-# blog_project_django
+# spring_project1
